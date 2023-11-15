@@ -1,0 +1,34 @@
+version: "3.4"
+
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: dockerfile
+
+    restart: always
+
+    ports:
+      - 8000:8000
+
+    command:
+      [
+        "uvicorn",
+        "src.main:app",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000"
+      ]
+    depends_on:
+      - redis
+
+  redis:
+    container_name: redis
+    build: redis
+
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+    ports: -6379:6379
