@@ -25,7 +25,7 @@ services:
 
   redis:
     container_name: redis
-    build: redis
+    image: redis
 
     environment:
       - REDIS_HOST=redis
